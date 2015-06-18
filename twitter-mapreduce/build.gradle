@@ -1,0 +1,49 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.3.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+jar {
+    baseName = 'twitter-mapreduce'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+    compile "org.projectlombok:lombok:1.16.4"
+    compile 'org.apache.tomcat:tomcat-dbcp:7.0.30'
+    compile "joda-time:joda-time:2.3"
+    compile("org.springframework.boot:spring-boot")
+    //compile("org.springframework.data:spring-data-hadoop")
+    compile("org.springframework.boot:spring-boot-autoconfigure")
+    compile("org.springframework.boot:spring-boot-starter-social-twitter")
+    compile 'org.apache.hadoop:hadoop-common:2.6.0'
+    compile 'org.apache.hadoop:hadoop-mapreduce-client-core:2.6.0'
+    testCompile("junit:junit")
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
+
+task 'create-dirs' << {
+    sourceSets.all { set ->
+        set.allSource.srcDirs.each {it.mkdirs()}
+    }
+}
+

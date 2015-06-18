@@ -19,7 +19,8 @@ public class FlumeRpcClient {
   
   public void sendToFlume(String json) {
     Event event = 
-      EventBuilder.withBody(json, Charset.forName("UTF-8"));
+      EventBuilder.withBody(
+        json, Charset.forName("UTF-8"));
 
     // Send the event
     try {
@@ -30,8 +31,6 @@ public class FlumeRpcClient {
       flumeClient.close();
       flumeClient = null;
       flumeClient = FlumeConfig.getFlumeRpcClient();
-      // Use the following method to create a thrift client (instead of the above line):
-      // this.client = RpcClientFactory.getThriftInstance(hostname, port);
     }
   }
 }
